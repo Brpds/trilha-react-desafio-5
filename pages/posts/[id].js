@@ -23,6 +23,8 @@ export default function PostPage({
   posts,
   globalData,
 }) {
+  console.log(posts)
+  
   return (
     <Layout>
       <SEO
