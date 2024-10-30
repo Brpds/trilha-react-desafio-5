@@ -21,6 +21,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "@mapbox/rehype-prism": "^0.8.0",
     "@netlify/plugin-nextjs": "4.14",
     "@tailwindcss/typography": "^0.5.0",
@@ -34,7 +35,10 @@
     "prismjs": "^1.25.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "remark-gfm": "^3.0.1"
+    "react-hook-form": "^7.53.1",
+    "react-router-dom": "^6.27.0",
+    "remark-gfm": "^3.0.1",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.0",

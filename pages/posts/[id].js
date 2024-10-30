@@ -1,5 +1,6 @@
 import { getGlobalData } from '../../utils/global-data';
 import {
+  deletePostBySlug,
   getPostBySlug,
 } from '../../utils/mdx-utils';
 
@@ -23,7 +24,7 @@ export default function PostPage({
   posts,
   globalData,
 }) {
-  console.log(posts)
+  //console.log(posts)
   
   return (
     <Layout>
@@ -35,18 +36,20 @@ export default function PostPage({
       <article className="px-6 md:px-0">
         <header>
           <h1 className="text-3xl md:text-5xl dark:text-white text-center mb-12">
-            {posts?.title}
+            {posts[0]?.title ? posts[0].title : 'Não Encontrado'}
           </h1>
           {posts?.description && (
-            <p className="text-xl mb-4">{posts?.description}</p>
+            <p className="text-xl mb-4">{posts[0]?.description}</p>
           )}
         </header>
         <main>
-          <article className="prose dark:prose-dark">
-            {posts.body}
+          <article className="prose dark:prose-dark text-justify">
+            {posts[0]?.body}
           </article>
         </main>
       </article>
+      <Link href={`/`} as={`/`}>← Voltar</Link>
+      <Link href='#' as={''}><a onClick={() => deletePostBySlug(posts[0].id)}> Apagar Post</a></Link>
       <Footer copyrightText={globalData.footerText} />
       <GradientBackground
         variant="large"

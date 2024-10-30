@@ -1,3 +1,78 @@
+# Desafio de Projeto - Criando o Seu Blog Pessoal com Next.JS - Bootcamp DIO e XP Inc, Fullstack Developer com .NET e C#
+
+Este projeto foi desenvolvido no bootcamp mencionado acima. A proposta inicial era somente reproduzir e conectar ao banco de dados do Supabase via API, retornando um único post via ID. Adicionei 3 itens de usabilidade: Voltar(pág. inicial), Criar Post(new post) e Apagar Post.
+
+## Instalar:
+
+Via CLI, 'yarn install' ou 'npm install' devem resolver as dependências. Depois, 'npm run dev'. Aspas não são incluídas para estes comandos no CLI.
+
+## Troubleshooting - O DB não conecta:
+
+Pode ser que com o tempo o banco de dados não esteja mais disponível (apagado do Supabase, como no projeto original de onde este foi clonado), mas ele ainda funcionará se seguidos alguns passos:
+
+### Criando o projeto e Database:
+
+No Supabase: Crie uma nova organização, dando nome, tipo e escolhendo o plano. Clicar no botão 'Create organization'.
+
+![Criar New Organization](./rscImg/newOrganization.png "Nova Organização")
+
+Criada a Organização, crie um novo projeto selecionando a Organização recém criada, dando nome ao projeto, e criando um database password (pode ser criado também via opção Generate Password, logo abaixo do campo). Selecione, Create new project.
+
+![Criar New Project](./rscImg/newProject.png "Novo Projeto")
+
+Criado o projeto, crie uma nova tabela em New Table, configurando-a nos campos da seguinte forma:
+
+  Name: posts -> será o nome da tabela
+
+  Colunas -> Selecionar Add column e configurar da seguinte forma:
+
+  | Name      | Type       | Default Value    | Primary   |
+  |:----------|------------|------------------|-----------|
+  | id        | uuid       | gen_random_uuid()| Checked   |
+  | title     | varchar    | null             | Unchecked |
+  |description| varchar    | null             | Unchecked |
+  |body       | text       | null             | Unchecked |
+  |created_at | timestamptz| null             | Unchecked |
+
+![Table e Columns](./rscImg/columns.png)
+
+### Conectando ao DB:
+
+Após criar a tabela e as colunas, na barra lateral em Project Settings, na aba API, você encontrará sua projectUrl e as duas Project API Keys, uma anon public - anônima pública - e uma service_role secret, que pode ser acessada pelo botão Reveal.
+
+![Db Connect](./rscImg/projectUrl.png "Conexão com o DB")
+
+De posse das chaves, vá até o arquivo /services/api.js e substitua os valores nas variáveis:
+
+    const supabaseUrl = "https://<suaUrlAqui>.supabase.co";
+    const supabaseKey = "suaChaveAnonPublicAqui"
+
+    export const api  = axios.create({
+        baseURL: `${supabaseUrl}/rest/v1`,
+        headers: {
+            APIKey: supabaseKey,
+        }
+    })
+
+Caso a chave não funcione, duas opções possíveis: 
+
+1 - No lugar da chave anon public, substitua o valor em supabaseKey pela chave service_role secret, adicionando no headers o valor authorization e passando a chave:
+
+    const supabaseKey = "suaChaveServiceRoleSecretAqui"
+
+    export const api  = axios.create({
+        baseURL: `${supabaseUrl}/rest/v1`,
+        headers: {
+            APIKey: supabaseKey,
+            authorization: `Bearer ${supabaseKey}`
+        }
+    })
+
+2 - (Não seguro) na tabela, clicar no botão Add RLS policy e na nova tela que abrir, Disable Row Level Security, Confirm. O fator que torna não seguro é que sua tabela será publicamente editável (Row Level Security is disabled. Your table is publicly readable and writable.).
+
+O Projeto deve funcionar normalmente a partir daqui.
+Caso não, ver documentação do Supabase em: [text](https://supabase.com/docs/guides/api)
+
 ![Netlify Next.js Blog Template designed by Bejamas](github-banner.svg)
 
 [![Deploy to Netlify Button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/nextjs-blog-theme)

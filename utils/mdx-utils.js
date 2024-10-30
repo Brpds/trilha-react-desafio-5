@@ -24,3 +24,16 @@ export const getPostBySlug = async (id) => {
         return null;
       }
 }
+
+export const deletePostBySlug = async (id) => {
+
+  try{
+    const response = await api.delete(`/posts?id=eq.${id}`)
+    if(response.status === 204){
+      alert('Apagado com sucesso. Redirecionando para Home')
+      window.location.href = '/'
+    }
+  }catch(error){
+    alert('Erro: ', error)
+  }
+}
