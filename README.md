@@ -71,7 +71,7 @@ Caso a chave não funcione, duas opções possíveis:
 2 - (Não seguro) na tabela, clicar no botão Add RLS policy e na nova tela que abrir, Disable Row Level Security, Confirm. O fator que torna não seguro é que sua tabela será publicamente editável (Row Level Security is disabled. Your table is publicly readable and writable.).
 
 O Projeto deve funcionar normalmente a partir daqui.
-Caso não, ver documentação do Supabase em: [text](https://supabase.com/docs/guides/api)
+Caso não, ver documentação do Supabase em: [Docs Supabase](https://supabase.com/docs/guides/api)
 
 ![Netlify Next.js Blog Template designed by Bejamas](github-banner.svg)
 
